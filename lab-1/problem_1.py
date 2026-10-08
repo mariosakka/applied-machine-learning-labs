@@ -1,0 +1,31 @@
+from sklearn.neural_network import MLPClassifier
+import matplotlib.pyplot as plt
+import numpy as np
+ 
+X = [[1.,0 ], [2, 0],[3,0],[0,1],[0,2]]
+T = [0,0, 1,0,1]
+net = MLPClassifier(solver='lbfgs', alpha=1e-5,
+                    hidden_layer_sizes=([]), random_state=1)
+net.fit(X, T)
+ 
+p=[x[0] for x in X]
+k=[x[1] for x in X]
+ 
+plt.plot([-1, 4],[0, 0],'k')
+plt.plot([0,0],[-1, 3],'k')
+ 
+# for sample in range(len(T)):
+#     if T[sample]:
+#         plt.plot(p[sample],k[sample],'rx', markersize=10)
+#     else:
+#         plt.plot(p[sample],k[sample],'go',markersize=10)
+
+for x in np.arange(-1.0, 4.0, 0.1):
+    for y in np.arange(-1.0, 3.0, 0.1):
+        if net.predict([[x,y]])[0]==1:
+            plt.plot(x,y,'ro', markersize=5)
+        else:
+            plt.plot(x,y,'go', markersize=5)
+
+
+plt.show()
